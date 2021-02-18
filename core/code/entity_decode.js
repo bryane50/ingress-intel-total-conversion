@@ -122,7 +122,8 @@ var dataLen = {
   core: [CORE_PORTAL_DATA_LENGTH],
   summary: [SUMMARY_PORTAL_DATA_LENGTH],
   detailed: [DETAILED_PORTAL_DATA_LENGTH],
-  extended: [EXTENDED_PORTAL_DATA_LENGTH, SUMMARY_PORTAL_DATA_LENGTH]
+  extended: [EXTENDED_PORTAL_DATA_LENGTH, SUMMARY_PORTAL_DATA_LENGTH],
+  anyknown: [CORE_PORTAL_DATA_LENGTH, SUMMARY_PORTAL_DATA_LENGTH, DETAILED_PORTAL_DATA_LENGTH, EXTENDED_PORTAL_DATA_LENGTH]
 };
 
 window.decodeArray.portal = function(a, details) {
@@ -135,12 +136,11 @@ window.decodeArray.portal = function(a, details) {
     throw new Error('decodeArray.portal: not a portal');
   }
 
-  if (details) {
-    var expected = dataLen[details];
-    if (expected.indexOf(a.length) === -1) {
-      log.warn('Unexpected portal data length: ' + a.length + ' (' + details + ')');
-      debugger;
-    }
+  details = details || 'anyknown';
+  var expected = dataLen[details];
+  if (expected.indexOf(a.length) === -1) {
+    log.warn('Unexpected portal data length: ' + a.length + ' (' + details + ')');
+    debugger;
   }
 
   var data = corePortalData(a);
