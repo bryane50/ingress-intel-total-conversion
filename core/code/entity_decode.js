@@ -121,8 +121,8 @@ function extendedPortalData(a) {
 var dataLen = {
   core: [CORE_PORTAL_DATA_LENGTH],
   summary: [SUMMARY_PORTAL_DATA_LENGTH],
-  detailed: [DETAILED_PORTAL_DATA_LENGTH],
-  extended: [EXTENDED_PORTAL_DATA_LENGTH, SUMMARY_PORTAL_DATA_LENGTH]
+  detailed: [DETAILED_PORTAL_DATA_LENGTH, EXTENDED_PORTAL_DATA_LENGTH],
+  extended: [EXTENDED_PORTAL_DATA_LENGTH, DETAILED_PORTAL_DATA_LENGTH, SUMMARY_PORTAL_DATA_LENGTH]
 };
 
 window.decodeArray.portal = function(a, details) {
@@ -152,9 +152,6 @@ window.decodeArray.portal = function(a, details) {
   if (a.length >= DETAILED_PORTAL_DATA_LENGTH) {
     if (a[SUMMARY_PORTAL_DATA_LENGTH]) {
       $.extend(data, detailsPortalData(a));
-    } else if (details !== 'extended') {
-      log.warn('Portal details missing');
-      debugger;
     }
   }
 
